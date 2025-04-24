@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Jojo Proxy</title>
+</head>
+<body>
+  <h1>Jojo Proxy 查詢</h1>
+  <input id="symbol" placeholder="輸入股票代碼如 2330" />
+  <button onclick="query()">查詢</button>
+  <pre id="result"></pre>
+
+  <script>
+    async function query() {
+      const symbol = document.getElementById('symbol').value;
+      const quote = await fetch(`/quote/${symbol}`).then(r => r.json());
+      const ai = await fetch(`/ai/${symbol}`).then(r => r.json());
+      document.getElementById('result').textContent = JSON.stringify({ quote, ai }, null, 2);
+    }
+  </script>
+</body>
+</html>
